@@ -1,7 +1,12 @@
 # Northcoders News API
 
-For instructions, please head over to [L2C NC News](https://l2c.northcoders.com/courses/be/nc-news).
+I am building an API for the purpose of accessing application data programmatically. The intention here is to mimic the building of a real world backend service (such as Reddit) which should provide this information to the front end architecture.
 
+You will need to install npm and postgres.
+
+The following files will need to be created to access to environment:
+1. .env.development 
+2. .env.test
 
 
 --- 
