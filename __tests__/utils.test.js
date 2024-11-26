@@ -1,8 +1,10 @@
+require('jest-extended'); 
 const {
   convertTimestampToDate,
   createRef,
   formatComments,
 } = require("../db/seeds/utils");
+
 
 describe("convertTimestampToDate", () => {
   test("returns a new object", () => {
@@ -10,13 +12,13 @@ describe("convertTimestampToDate", () => {
     const input = { created_at: timestamp };
     const result = convertTimestampToDate(input);
     expect(result).not.toBe(input);
-    expect(result).toBeObject();
+    expect(result).toEqual(expect.any(Object));
   });
   test("converts a created_at property to a date", () => {
     const timestamp = 1557572706232;
     const input = { created_at: timestamp };
     const result = convertTimestampToDate(input);
-    expect(result.created_at).toBeDate();
+    expect(result.created_at).toEqual(expect.any(Date));
     expect(result.created_at).toEqual(new Date(timestamp));
   });
   test("does not mutate the input", () => {
@@ -102,3 +104,4 @@ describe("formatComments", () => {
     expect(formattedComments[0].created_at).toEqual(new Date(timestamp));
   });
 });
+
