@@ -70,9 +70,9 @@ const fetchArticlesById = (article_id) => {
     return db
         .query(sqlQuery, [article_id, username, body])
         .then(({ rows }) => {
-            return rows[0]; // Return the new comment
+            return rows[0]; 
         })  .catch((err) => {
-            // Log database-specific errors
+           
             console.error("Database error during comment insertion:", err.stack || err);
             throw err;
         });
