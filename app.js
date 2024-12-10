@@ -4,6 +4,9 @@ const { getAPI, getTopics, getArticlesById, getArticles, getArticleComments, pos
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('Welcome to the NC News API!');
+});
 app.get('/api', getAPI);
 app.get('/api/topics', getTopics);
 app.get('/api/articles/:article_id', getArticlesById);
