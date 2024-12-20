@@ -19,11 +19,44 @@
           "topic": "cooking",
           "author": "weegembump",
           "body": "Text from the article..",
-          "created_at": "2018-05-30T15:59:13.341Z",
+          "created_at": 1589433300000,
           "votes": 0,
           "comment_count": 6
         }
       ]
     }
+  },
+  "POST /api/articles/:article_id/comments":{
+    "description": "add a comment for an article",
+    "queries": ["article_id", "username", "body"],
+    "example response": {
+      "article": [
+        {
+          "comment_id": 4,
+          "article_id": 1,
+          "author": "butter_bridge",
+          "body": "Great article! :)",
+          "votes": 0,
+          "created_at": 1589433300000
+        }
+      ]
+    }
+  },
+  "PATCH /api/articles/:article_id": {
+    "description": "update an article by article_id",
+    "queries": "[inc_votes, article_id]",
+    "example response": {
+      "article": [
+        {
+          "comment_id": 4,
+          "article_id": 1,
+          "author": "butter_bridge",
+          "body": "Great article! :)",
+          "votes": 5,
+          "created_at": 1589433300000
+        }
+      ]
+    }
   }
-}
+  }
+

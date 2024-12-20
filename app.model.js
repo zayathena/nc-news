@@ -62,20 +62,42 @@ const fetchArticlesById = (article_id) => {
 
   const insertComment = (article_id, username, body) => {
     const sqlQuery = `
-        INSERT INTO comments (article_id, author, body, votes, created_at)
-        VALUES ($1, $2, $3, 0, NOW())
-        RETURNING comment_id, article_id, author, body, votes, created_at;
+      INSERT INTO comments (article_id, author, body, votes, created_at)
+      VALUES ($1, $2, $3, 0, NOW())
+      RETURNING comment_id, article_id, author, body, votes, created_at;
     `;
 
     return db
         .query(sqlQuery, [article_id, username, body])
         .then(({ rows }) => {
-            return rows[0]; 
-        })  .catch((err) => {
-           
+            const insertedComment = rows[0];
+            console.log("Inserted comment result:", insertedComment);
+            return {
+                comment_id: insertedComment.comment_id,
+                article_id: insertedComment.article_id,
+                username: insertedComment.author, // Map 'author' to 'username'
+                body: insertedComment.body,
+                votes: insertedComment.votes,
+                created_at: insertedComment.created_at,
+            };
+        })
+        .catch((err) => {
             console.error("Database error during comment insertion:", err.stack || err);
             throw err;
         });
 };
 
- module.exports = { fetchArticlesById, fetchArticles, fetchArticleComments, insertComment } 
+  const updateArticleVotes = (article_id, inc_votes) => {
+    const sqlQuery = `
+      UPDATE articles
+      SET votes = votes + $1
+      WHERE article_id = $2
+      RETURNING *;
+    `;
+  
+    return db.query(sqlQuery, [inc_votes, article_id]).then(({ rows }) => {
+      return rows[0]; 
+    });
+  }
+
+ module.exports = { fetchArticlesById, fetchArticles, fetchArticleComments, insertComment, updateArticleVotes } 

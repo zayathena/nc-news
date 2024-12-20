@@ -194,23 +194,23 @@ describe("GET /api/articles/:article_id/comments", () => {
 });
 
 describe("POST /api/articles/:article_id/comments", () => {
-  // test("201: should respond with a new posted comment", () => {
-  //   const newComment = { username: "butter_bridge", body: "Great article! :)" };
-  //   return request(app)
-  //     .post("/api/articles/1/comments")
-  //     .send(newComment)
-  //     .expect(201)
-  //     .then(({ body: { comment } }) => {
-  //       expect(comment).toMatchObject({
-  //         comment_id: expect.any(Number),
-  //         article_id: 1,
-  //         author: "butter_bridge",
-  //         body: "Great article! :)",
-  //         votes: 0,
-  //         created_at: expect.any(String),
-  //       });
-  //     });
-  // });
+  test("201: should respond with a new posted comment", () => {
+    const newComment = { username: "butter_bridge", body: "Great article! :)" };
+    return request(app)
+      .post("/api/articles/1/comments")
+      .send(newComment)
+      .expect(201)
+      .then(({ body: { comment } }) => {
+        expect(comment).toMatchObject({
+          comment_id: expect.any(Number),
+          article_id: 1,
+          username: "butter_bridge",
+          body: "Great article! :)",
+          votes: 0,
+          created_at: expect.any(String),
+        });
+      });
+  });
   test("400: should return an error if body is missing", () => {
     const invalidComment = { username: "butter_bridge" };
     return request(app)
@@ -251,4 +251,58 @@ describe("POST /api/articles/:article_id/comments", () => {
         expect(body.msg).toBe("Article does not exist");
       });
   });
+  })
+
+  describe("PATCH /api/articles/:article_id", ()=>{
+    describe('PATCH /api/articles/:article_id', () => {
+      test('200: should update the votes and return the updated article', () => {
+        return request(app)
+          .patch('/api/articles/1')
+          .send({ inc_votes: 10 })
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.article).toMatchObject({
+              article_id: 1,
+              votes: expect.any(Number),
+            });
+            expect(body.article.votes).toBe(110);
+          });
+      });
+      test('400: should return bad request for invalid vote increment', () => {
+        return request(app)
+          .patch('/api/articles/1')
+          .send({ inc_votes: 'not-a-number' })
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).toBe("Bad request: 'inc_votes' must be a number");
+          });
+      });
+      test('404: should return not found if the article does not exist', () => {
+        return request(app)
+          .patch('/api/articles/9999')
+          .send({ inc_votes: 1 })
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).toBe("Article not found");
+          });
+      });
+      test('400: should return bad request for invalid article_id', () => {
+        return request(app)
+          .patch('/api/articles/not-a-number')
+          .send({ inc_votes: 1 })
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).toBe('Bad request: Invalid article_id');
+          });
+      });
+      test('400: should return bad request if no inc_votes is provided', () => {
+        return request(app)
+          .patch('/api/articles/1')
+          .send({})
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).toBe("Bad request: 'inc_votes' must be a number");
+          });
+      });
+    });
   })
