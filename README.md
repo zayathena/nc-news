@@ -34,13 +34,13 @@ npm run seed
 # How to Use The Project: 
 Available Routes
 
-GET /api, gets API
-GET /api/topics, fetches article topics
-GET /api/articles/:article_id, fetches article by their aticle ID
-GET /api/articles, fetches all articles
-GET /api/articles/:article_id/comments, fetches article comments by the article ID
-POST /api/articles/:article_id/comments, allows to post a comment to an article
-PATCH /api/articles/:article_id, allows articles to be rated up or down 
+1. GET /api, gets API
+2. GET /api/topics, fetches article topics
+3. GET /api/articles/:article_id, fetches article by their aticle ID
+4. GET /api/articles, fetches all articles
+5. GET /api/articles/:article_id/comments, fetches article comments by the article ID
+6. POST /api/articles/:article_id/comments, allows to post a comment to an article
+7. PATCH /api/articles/:article_id, allows articles to be rated up or down 
 
 Developed by: Clare Regan
 Special thanks to Northcoders for the mentorship and guidance.
