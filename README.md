@@ -42,9 +42,10 @@ Available Routes
 6. POST /api/articles/:article_id/comments, allows to post a comment to an article
 7. PATCH /api/articles/:article_id, allows articles to be rated up or down 
 
-Developed by: Clare Regan
+# Developed by: Clare Regan
 Special thanks to Northcoders for the mentorship and guidance.
 
+# License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
 
 
