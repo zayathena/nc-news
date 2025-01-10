@@ -8,31 +8,31 @@ One of the major challenges was getting the 201 POST request to work correctly, 
 
 Future features could include advanced search for articles, user authentication for personalising experiences, article categorisation, and recommendations based on ratings or comments.
 
-Steps To Install: 
-# Clone the repository
+# Steps To Install: 
+1. Clone the repository
 git clone https://github.com/yourusername/nc-news-api.git
 cd nc-news-api
 
-# Install dependencies
+2. Install dependencies
 npm install
 
-# Set up the environment variables
-# Create a .env file with the following contents:
+3. Set up the environment variables
+Create a .env file with the following contents:
 DATABASE_URL=your_database_url
 NODE_ENV=development
 PORT=your_port_number
 
-# Run database migrations and seed data
+4. Run database migrations and seed data
 npm run setup-database
 
-# Start the server
+5. Start the server
 npm start
 
-# Seed the database
+6. Seed the database
 npm run seed
 
-How to Use The Project: 
-## Available Routes
+# How to Use The Project: 
+Available Routes
 
 GET /api, gets API
 GET /api/topics, fetches article topics
